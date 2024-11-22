@@ -12,5 +12,10 @@ spring:
             resourceserver:
                 jwt:
                     issuer-uri: http://localhost:9091
+
 server:
     port: 9021
+
+feign:
+    client:
+        customer-service: http://localhost:9020/api/customers
