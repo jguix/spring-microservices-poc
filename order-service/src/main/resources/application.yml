@@ -1,0 +1,16 @@
+spring:
+    application:
+        name: order-service
+    h2:
+        console:
+            enabled: true
+    jpa:
+        hibernate:
+            ddl-auto: create
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost:9091
+server:
+    port: 9021

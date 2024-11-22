@@ -1,0 +1,25 @@
+
+server:
+    port: 8888
+
+spring:
+    application:
+        name: gateway
+    cloud:
+        gateway:
+            mvc:
+                routes:
+                    - id: customer-service
+                      uri: http://localhost:9020
+                      predicates:
+                        - Path=/api/customers/**
+
+                    - id: order-service
+                      uri: http://localhost:9021
+                      predicates:
+                        - Path=/api/orders/**
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost:9091
