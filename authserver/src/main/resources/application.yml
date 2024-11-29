@@ -1,10 +1,16 @@
 spring:
     application:
         name: authserver
+    h2:
+        console:
+            enabled: true
     jpa:
         hibernate:
-            ddl-auto: create
-        show-sql: true
+            ddl-auto: create-drop
 
 server:
     port: 9091
+
+logging:
+    level:
+        org.springframework.security: TRACE
