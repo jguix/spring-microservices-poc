@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,17 +20,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
+import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
@@ -70,7 +66,7 @@ public class SecurityConfig {
         http.oauth2ResourceServer(oauth2 -> oauth2
                 .jwt(Customizer.withDefaults())
         );
-    
+
         return http.build();
     }
 
@@ -80,19 +76,19 @@ public class SecurityConfig {
             throws Exception {
         // By default any request needs authentication
         http.authorizeHttpRequests((authorize) -> authorize
-            // .requestMatchers("/h2-console/**").permitAll() // Allow H2 console access
+            .requestMatchers("/h2-console/**").permitAll() // Allow H2 console access, comment if not using
             .anyRequest().authenticated()
         )
         // Form login handles the redirect to the login page from the
         // authorization server filter chain
         .formLogin(Customizer.withDefaults());
 
-        // http.csrf(csrf -> csrf
-        //     .ignoringRequestMatchers("/h2-console/**") // Disable CSRF for H2 console
-        // )
-        // .headers(headers -> headers
-        //     .frameOptions().sameOrigin() // Fix for H2 Console: allow frames from the same origin
-        // );
+        http.csrf(csrf -> csrf
+            .ignoringRequestMatchers("/h2-console/**") // Disable CSRF for H2 console, comment if not using
+        )
+        .headers(headers -> headers
+            .frameOptions().sameOrigin() // Fix for H2 Console: allow frames from the same origin, comment if not using
+        );
 
         return http.build();
     }
@@ -111,26 +107,9 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(4);
     }
 
-    // @Bean
-    // public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-    //     return new JdbcRegisteredClientRepository(jdbcTemplate);
-    // }
-
     @Bean
-    public RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-            .clientId("client")
-            .clientSecret(passwordEncoder().encode("secret"))
-            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-            .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-            .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-            .redirectUri("https://oauthdebugger.com/debug")
-            .scope(OidcScopes.OPENID)
-            .clientSettings(ClientSettings.builder().requireProofKey(true).build())
-            .build();
-
-        return new InMemoryRegisteredClientRepository(registeredClient);
+    public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
+        return new JdbcRegisteredClientRepository(jdbcTemplate);
     }
 
     @Bean
