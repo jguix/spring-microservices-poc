@@ -23,3 +23,8 @@ spring:
             resourceserver:
                 jwt:
                     issuer-uri: http://localhost:9091
+
+logging:
+    level:
+        org.springframework.security: TRACE
+        org.springframework.security.oauth2: TRACE

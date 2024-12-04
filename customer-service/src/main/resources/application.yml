@@ -14,3 +14,8 @@ spring:
                     issuer-uri: http://localhost:9091
 server:
     port: 9020
+
+logging:
+    level:
+        org.springframework.security: TRACE
+        org.springframework.security.oauth2: TRACE

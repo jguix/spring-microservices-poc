@@ -19,3 +19,8 @@ server:
 feign:
     client:
         customer-service: http://localhost:9020/api/customers
+
+logging:
+    level:
+        org.springframework.security: TRACE
+        org.springframework.security.oauth2: TRACE
