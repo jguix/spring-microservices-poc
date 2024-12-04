@@ -30,7 +30,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CustomerDTO getCustomerById(@PathVariable Long id) {
         return customerService.getCustomerById(id);
     }
