@@ -1,5 +1,7 @@
+-- admin / Testing1!
 INSERT INTO app_user(id, username, password, roles)
 VALUES (1, 'admin', '$2a$12$T1PCr4SMIHsOHC6ZORBkduUaS0MsY9SAcj9LmW8o/3uCA0Gd7wX3W', 'ROLE_ADMIN,ROLE_USER');
+-- user1 / Testing2!
 INSERT INTO app_user(id, username, password, roles)
 VALUES (2, 'user1', '$2a$12$z7wIBKbCwL16kylIE4sJgOS5nSAS.ixmv9bLpWIoZGlTEohYz5O4u', 'ROLE_USER');
 

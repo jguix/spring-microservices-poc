@@ -14,5 +14,12 @@ export class TokenService {
     localStorage.setItem(ACCESS_TOKEN, access_token);
     localStorage.setItem(REFRESH_TOKEN, refresh_token);
   }
-  
+
+  getAccessToken(): string | null {
+    return localStorage.getItem(ACCESS_TOKEN);
+  }
+
+  getRefreshToken(): string | null {
+    return localStorage.getItem(REFRESH_TOKEN);
+  }
 }

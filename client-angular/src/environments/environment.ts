@@ -14,6 +14,8 @@ export const environment = {
   code_challenge_method: 'S256',
   code_challenge: 'meWMSrkRBnMbd5RRseIVwuFGFOU6xwHi0_LgQyCOd1A',
   code_verifier: 'vaJQvOcb8RfWoZWFvpSLAQjUywZx2VUiG6cAZpr7MV7',
+  // api_uri: 'http://localhost:8888/api',
+  api_uri: 'http://localhost:9020/api',
   token_uri: 'http://localhost:9091/oauth2/token',
 };
 
