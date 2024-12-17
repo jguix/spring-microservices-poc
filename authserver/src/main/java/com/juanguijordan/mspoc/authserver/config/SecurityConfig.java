@@ -50,6 +50,8 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
             throws Exception {
+        http.cors(Customizer.withDefaults());
+        
         // Apply default security settings for the authorization server
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
     
@@ -74,6 +76,8 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity http)
             throws Exception {
+        http.cors(Customizer.withDefaults());
+        
         // By default any request needs authentication
         http.authorizeHttpRequests((authorize) -> authorize
             .requestMatchers("/h2-console/**").permitAll() // Allow H2 console access, comment if not using

@@ -1,3 +1,6 @@
+server:
+    port: 9091
+
 spring:
     application:
         name: authserver
@@ -7,9 +10,6 @@ spring:
     jpa:
         hibernate:
             ddl-auto: update
-
-server:
-    port: 9091
 
 logging:
     level:

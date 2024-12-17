@@ -29,7 +29,7 @@ VALUES (
     'Messaging Client', 
     'client_secret_basic', 
     'authorization_code,client_credentials,refresh_token',
-    'https://oauthdebugger.com/debug', 
+    'http://127.0.0.1:4200/authorized', 
     '',
     'openid', 
     '{"@class":"java.util.Collections$UnmodifiableMap","settings.client.require-proof-key":true,"settings.client.require-authorization-consent":false}', 
