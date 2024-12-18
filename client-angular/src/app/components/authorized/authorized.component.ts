@@ -31,9 +31,9 @@ export class AuthorizedComponent implements OnInit {
         this.apiService.customers().subscribe(
           data => console.log('Customers: ' + JSON.stringify(data))
         );
-        // this.apiService.orders().subscribe(
-        //   data => console.log('Orders: ' + JSON.stringify(data))
-        // );
+        this.apiService.orders().subscribe(
+          data => console.log('Orders: ' + JSON.stringify(data))
+        );
       });
     });
   }

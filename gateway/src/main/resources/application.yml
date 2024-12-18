@@ -28,3 +28,6 @@ logging:
     level:
         org.springframework.security: TRACE
         org.springframework.security.oauth2: TRACE
+        org.springframework.web.cors: DEBUG
+        org.springframework.security.web: DEBUG
+        org.springframework.http: DEBUG
